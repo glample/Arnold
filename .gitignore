@@ -1,0 +1,4 @@
+lib/
+__pycache__/
+*.py[cod]
+_vizdoom.ini
