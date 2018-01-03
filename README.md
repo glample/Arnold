@@ -206,7 +206,7 @@ We also trained an agent on a single map, using a same weapon (the SuperShotgun)
 
 If you found this code useful, please consider citing:
 
-[1] G. Lample\* and D. Chaplot\*, [*Playing FPS Games with Deep Reinforcement Learning*](https://arxiv.org/abs/1609.05521)
+[1] G. Lample\* and D.S. Chaplot\*, [*Playing FPS Games with Deep Reinforcement Learning*](https://arxiv.org/abs/1609.05521)
 ```
 @inproceedings{lample2017playing,
   title={Playing FPS Games with Deep Reinforcement Learning.},
@@ -217,7 +217,7 @@ If you found this code useful, please consider citing:
 ```
 
 
-[2] D. Chaplot\* and G. Lample\*, [*Arnold: An Autonomous Agent to Play FPS Games*](http://www.cs.cmu.edu/~dchaplot/papers/arnold_aaai17.pdf)
+[2] D.S. Chaplot\* and G. Lample\*, [*Arnold: An Autonomous Agent to Play FPS Games*](http://www.cs.cmu.edu/~dchaplot/papers/arnold_aaai17.pdf)
 ```
 @inproceedings{chaplot2017arnold,
   title={Arnold: An Autonomous Agent to Play FPS Games.},
