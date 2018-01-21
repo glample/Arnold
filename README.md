@@ -2,6 +2,7 @@
 
 Arnold is a PyTorch implementation of the agent presented in *Playing FPS Games with Deep Reinforcement Learning* (https://arxiv.org/abs/1609.05521), and that won the 2017 edition of the [*ViZDoom AI Competition*](http://vizdoom.cs.put.edu.pl/competition-cig-2017).
 
+![example](./docs/example.gif) 
 
 ### This repository contains:
 - The source code to train DOOM agents
