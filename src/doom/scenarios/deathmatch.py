@@ -174,6 +174,7 @@ def evaluate_deathmatch(game, network, params, n_train_iter=None):
             # observe the game state / select the next action
             game.observe_state(params, last_states)
             action = network.next_action(last_states)
+            action = action.tolist()
             pred_features = network.pred_features
 
             # game features
