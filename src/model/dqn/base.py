@@ -78,7 +78,9 @@ class DQNModuleBase(nn.Module):
 
         # create state input
         if self.n_variables:
-            output = torch.cat([conv_output] + embeddings, 1)
+            embeddings = torch.cat(embeddings)
+            embeddings.unsqueeze_(0)
+            output = torch.cat((conv_output, embeddings), dim=1)
         else:
             output = conv_output
 
