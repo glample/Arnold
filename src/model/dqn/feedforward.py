@@ -21,11 +21,15 @@ class DQNModuleFeedforward(DQNModuleBase):
         """
 
         batch_size = x_screens.size(0)
+
+        for x in x_variables:
+            x.unsqueeze_(0)
         
         assert x_screens.ndimension() == 4
         assert len(x_variables) == self.n_variables
-        assert all(x.ndimension() == 0 and len(list(x.size())) == batch_size-1
-                    for x in x_variables)
+
+        #assert all(x.ndimension() == 0 and len(list(x.size())) == batch_size
+        #            for x in x_variables)
 
         # state input (screen / depth / labels buffer + variables)
         state_input, output_gf = self.base_forward(x_screens, x_variables)
