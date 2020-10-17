@@ -9,4 +9,4 @@ class BucketedEmbedding(nn.Embedding):
         super(BucketedEmbedding, self).__init__(real_num_embeddings, *args, **kwargs)
 
     def forward(self, indices):
-        return super(BucketedEmbedding, self).forward(indices.div(self.bucket_size))
+        return super(BucketedEmbedding, self).forward(indices // self.bucket_size)

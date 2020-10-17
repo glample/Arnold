@@ -78,7 +78,7 @@ class DQNModuleBase(nn.Module):
 
         # create state input
         if self.n_variables:
-            output = torch.cat([conv_output] + embeddings, 1)
+            output = torch.cat([conv_output] + embeddings, dim=1)
         else:
             output = conv_output
 
@@ -185,9 +185,8 @@ class DQN(object):
         return screens, variables, features, actions, rewards, isfinal
 
     def register_loss(self, loss_history, loss_sc, loss_gf):
-        loss_history['dqn_loss'].append(loss_sc.data[0])
-        loss_history['gf_loss'].append(loss_gf.data[0]
-                                       if self.n_features else 0)
+        loss_history['dqn_loss'].append(loss_sc.data)
+        loss_history['gf_loss'].append(loss_gf.data if self.n_features else 0)
 
     def next_action(self, last_states, save_graph=False):
         scores, pred_features = self.f_eval(last_states)
@@ -205,7 +204,7 @@ class DQN(object):
             if pred_features is not None:
                 assert pred_features.size() == (1, seq_len, self.module.n_features)
                 pred_features = pred_features[0, -1]
-        action_id = scores.data.max(0)[1][0]
+        action_id = scores.data.max(0)[1]
         self.pred_features = pred_features
         return action_id
 

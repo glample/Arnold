@@ -31,13 +31,13 @@ def main(_parser, args):
     assert players_per_game in range(1, 9)
     processes = []
     param_server = ParameterServer(params.num_players)
+
     for i in range(params.num_players):
-        subprocess_args = ['--players_per_game', str(players_per_game),
-                           '--player_rank', str(i)]
+        subprocess_args = ['--players_per_game', str(players_per_game), '--player_rank', str(i)]
         subprocess_args += remaining_args
-        proc = mp.Process(target=worker_fn_factory(module.main),
-                          args=(i, _parser, subprocess_args, param_server))
+        proc = mp.Process(target=worker_fn_factory(module.main), args=(i, _parser, subprocess_args, param_server))
         proc.start()
         processes.append(proc)
+
     for p in processes:
         p.join()

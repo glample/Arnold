@@ -1,4 +1,10 @@
 lib/
+
+dumped/*
+test
+
+.idea
+
 __pycache__/
 *.py[cod]
 _vizdoom.ini

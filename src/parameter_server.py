@@ -11,7 +11,7 @@ class ParameterServer(object):
         self.params = None
 
     def __getstate__(self):
-        return (self.queue, self.lock)
+        return self.queue, self.lock
 
     def __setstate__(self, state):
         self.queue, self.lock = state

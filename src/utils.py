@@ -106,10 +106,12 @@ def get_dump_path(main_dump_path, exp_name):
     assert len(exp_name) > 0
     # create the sweep path if it does not exist
     if not os.path.isdir(main_dump_path):
-        subprocess.Popen("mkdir %s" % main_dump_path, shell=True).wait()
+        os.makedirs(main_dump_path)
+
     sweep_path = os.path.join(main_dump_path, exp_name)
     if not os.path.exists(sweep_path):
-        subprocess.Popen("mkdir %s" % sweep_path, shell=True).wait()
+        os.makedirs(sweep_path)
+
     # randomly generate a experiment ID
     chars = 'abcdefghijklmnopqrstuvwxyz0123456789'
     while True:
@@ -117,9 +119,10 @@ def get_dump_path(main_dump_path, exp_name):
         dump_path = os.path.join(sweep_path, folder_name)
         if not os.path.isdir(dump_path):
             break
+
     # create the dump folder
     if not os.path.isdir(dump_path):
-        subprocess.Popen("mkdir %s" % dump_path, shell=True).wait()
+        os.makedirs(dump_path)
     return dump_path
 
 
