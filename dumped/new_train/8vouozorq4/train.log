@@ -1,0 +1,70 @@
+INFO [7179] - 08/25/21 17:46:05 - 0:00:00 - ========== Running DOOM ==========
+INFO [7179] - 08/25/21 17:46:05 - 0:00:00 - Experiment will be saved in: /media/agi/Disk/Microsoft_PR/Arnold/dumped/new_train/8vouozorq4
+INFO [7179] - 08/25/21 17:46:05 - 0:00:00 - scenario: defend_the_center
+                                            map_ids_train: [1]
+                                            map_ids_test: [1]
+                                            freedoom: True
+                                            height: 60
+                                            width: 108
+                                            gray: False
+                                            use_screen_buffer: True
+                                            use_depth_buffer: False
+                                            labels_mapping: 0
+                                            game_features: 
+                                            render_hud: False
+                                            render_crosshair: True
+                                            render_weapon: True
+                                            hist_size: 4
+                                            frame_skip: 2
+                                            action_combinations: turn_lr+attack
+                                            freelook: False
+                                            speed: off
+                                            crouch: off
+                                            manual_control: False
+                                            players_per_game: 1
+                                            player_rank: 0
+                                            dump_path: /media/agi/Disk/Microsoft_PR/Arnold/dumped/new_train/8vouozorq4
+                                            visualize: False
+                                            evaluate: 0
+                                            human_player: False
+                                            reload: 
+                                            dump_freq: 0
+                                            gpu_id: -1
+                                            log_frequency: 100
+                                            network_type: dqn_ff
+                                            use_bn: False
+                                            batch_size: 32
+                                            replay_memory_size: 100000
+                                            start_decay: 0
+                                            stop_decay: 1000000
+                                            final_decay: 0.1
+                                            gamma: 0.99
+                                            dueling_network: False
+                                            recurrence: 
+                                            clip_delta: 1.0
+                                            variable_dim: [32, 32]
+                                            bucket_size: [1, 1]
+                                            hidden_dim: 512
+                                            update_frequency: 4
+                                            dropout: 0.0
+                                            optimizer: rmsprop,lr=0.0002
+                                            game_variables: [('health', 101), ('sel_ammo', 301)]
+                                            n_variables: 2
+                                            n_features: 0
+                                            n_fm: 4
+                                            use_continuous: False
+                                            episode_time: 120
+                                            eval_freq: 30000
+                                            eval_episodes: 20
+INFO [7179] - 08/25/21 17:46:05 - 0:00:00 - 9 available buttons: ['MOVE_FORWARD', 'MOVE_BACKWARD', 'TURN_LEFT', 'TURN_RIGHT', 'MOVE_LEFT', 'MOVE_RIGHT', 'ATTACK', 'SPEED', 'CROUCH']
+INFO [7179] - 08/25/21 17:46:05 - 0:00:00 - 3 available actions:
+                                            ['TURN_LEFT']
+                                            ['TURN_RIGHT']
+                                            ['ATTACK']
+INFO [7179] - 08/25/21 17:46:05 - 0:00:00 - Reward values:
+INFO [7179] - 08/25/21 17:46:05 - 0:00:00 - {'BASE_REWARD': 0.0, 'DISTANCE': 0.0, 'KILL': 5.0, 'DEATH': -5.0, 'SUICIDE': -5.0, 'MEDIKIT': 1.0, 'ARMOR': 1.0, 'INJURED': -1.0, 'WEAPON': 1.0, 'AMMO': 1.0, 'USE_AMMO': -0.2}
+INFO [7179] - 08/25/21 17:46:05 - 0:00:00 - Input shape: (4, 60, 108)
+INFO [7179] - 08/25/21 17:46:05 - 0:00:00 - Conv layer output dim : 4608
+INFO [7179] - 08/25/21 17:46:05 - 0:00:00 - Hidden layer input dim: 4672
+INFO [7179] - 08/25/21 17:46:05 - 0:00:00 - Starting experiment...
+INFO [7179] - 08/25/21 17:46:05 - 0:00:00 - Training on map 1 ...
