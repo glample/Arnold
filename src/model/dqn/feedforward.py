@@ -21,10 +21,14 @@ class DQNModuleFeedforward(DQNModuleBase):
         """
 
         batch_size = x_screens.size(0)
+
+        for x in x_variables:
+            x.unsqueeze_(0)
+
         assert x_screens.ndimension() == 4
         assert len(x_variables) == self.n_variables
-        assert all(x.ndimension() == 1 and x.size(0) == batch_size
-                   for x in x_variables)
+        #assert all(x.ndimension() == 1 and x.size(0) == batch_size
+        #           for x in x_variables)
 
         # state input (screen / depth / labels buffer + variables)
         state_input, output_gf = self.base_forward(x_screens, x_variables)
@@ -75,6 +79,9 @@ class DQNFeedforward(DQN):
 
         # compute scores
         mask = torch.ByteTensor(output_sc1.size()).fill_(0)
+        mask = mask.squeeze(0)
+        output_sc2 = output_sc2.squeeze(0)
+
         for i in range(batch_size):
             mask[i, int(actions[i, -1])] = 1
         scores1 = output_sc1.masked_select(self.get_var(mask))

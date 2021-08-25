@@ -1,7 +1,7 @@
-import torch.nn as nn
+import torch
 
 
-class BucketedEmbedding(nn.Embedding):
+class BucketedEmbedding(torch.nn.Embedding):
 
     def __init__(self, bucket_size, num_embeddings, *args, **kwargs):
         self.bucket_size = bucket_size
@@ -9,4 +9,4 @@ class BucketedEmbedding(nn.Embedding):
         super(BucketedEmbedding, self).__init__(real_num_embeddings, *args, **kwargs)
 
     def forward(self, indices):
-        return super(BucketedEmbedding, self).forward(indices.div(self.bucket_size))
+        return super(BucketedEmbedding, self).forward(indices.div(self.bucket_size).type(torch.LongTensor))
