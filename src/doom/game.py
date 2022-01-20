@@ -248,7 +248,7 @@ class Game(object):
                                          rocketlauncher, plasmarifle, bfg9000])
         assert 0 <= health <= 200 or health < 0 and self.game.is_player_dead()
         assert 0 <= armor <= 200, (health, armor)
-        assert 0 <= bullets <= 200 and 0 <= shells <= 50
+        assert 200 >= bullets >= 0 <= shells <= 50
         assert 0 <= rockets <= 50 and 0 <= cells <= 300
 
         # fist
