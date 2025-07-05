@@ -59,8 +59,8 @@ class Trainer(object):
             self.n_iter += 1
 
             if self.game.is_final():
-                self.game.reset()     # dead or end of episode
-                self.network.reset()  # reset internal state (RNNs only)
+                self.game.new_episode()  # dead or end of episode
+                self.network.reset()     # reset internal state (RNNs only)
 
             self.game.observe_state(self.params, last_states)
 

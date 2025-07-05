@@ -39,6 +39,10 @@ def get_logger(filepath=None):
     log_formatter = LogFormatter()
 
     # create file handler and set level to debug
+    file_dir = os.path.split(filepath)[0]
+    if file_dir and not os.path.exists(file_dir):
+        os.makedirs(file_dir)
+        print("Directory", file_dir, "didn't exist, and was created", flush=True)
     file_handler = logging.FileHandler(filepath, "a")
     file_handler.setLevel(logging.DEBUG)
     file_handler.setFormatter(log_formatter)

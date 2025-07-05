@@ -18,7 +18,7 @@ class ReplayMemory:
             self.features = np.zeros((max_size, n_features), dtype=np.int32)
         self.actions = np.zeros(max_size, dtype=np.int32)
         self.rewards = np.zeros(max_size, dtype=np.float32)
-        self.isfinal = np.zeros(max_size, dtype=np.bool)
+        self.isfinal = np.zeros(max_size, dtype=bool)
 
     @property
     def size(self):

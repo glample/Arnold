@@ -1,5 +1,4 @@
 import torch
-from torch.autograd import Variable
 from .base import DQNModuleBase, DQN
 from ..utils import get_recurrent_module
 from ...utils import bool_flag
@@ -63,7 +62,7 @@ class DQNRecurrent(DQN):
         h_0 = torch.FloatTensor(params.n_rec_layers, params.batch_size,
                                 params.hidden_dim).zero_()
         self.init_state_t = self.get_var(h_0)
-        self.init_state_e = Variable(self.init_state_t[:, :1, :].data.clone(), volatile=True)
+        self.init_state_e = self.init_state_t[:, :1, :].detach().clone()
         if params.recurrence == 'lstm':
             self.init_state_t = (self.init_state_t, self.init_state_t)
             self.init_state_e = (self.init_state_e, self.init_state_e)
@@ -116,7 +115,7 @@ class DQNRecurrent(DQN):
         )
 
         # compute scores
-        mask = torch.ByteTensor(output_sc.size()).fill_(0)
+        mask = torch.BoolTensor(output_sc.size()).fill_(0)
         for i in range(batch_size):
             for j in range(seq_len - 1):
                 mask[i, j, int(actions[i, j])] = 1
@@ -128,7 +127,7 @@ class DQNRecurrent(DQN):
         # dqn loss
         loss_sc = self.loss_fn_sc(
             scores1.view(batch_size, -1)[:, -self.params.n_rec_updates:],
-            Variable(scores2.data[:, -self.params.n_rec_updates:])
+            scores2.detach()[:, -self.params.n_rec_updates:]
         )
 
         # game features loss

@@ -1,6 +1,5 @@
 import torch
 import torch.nn as nn
-from torch.autograd import Variable
 from logging import getLogger
 from .bucketed_embedding import BucketedEmbedding
 
@@ -76,7 +75,7 @@ def build_CNN_network(module, params):
     ]))
 
     # get the size of the convolution network output
-    x = Variable(torch.FloatTensor(1, in_channels, height, width).zero_())
+    x = torch.FloatTensor(1, in_channels, height, width).zero_()
     module.conv_output_dim = module.conv(x).nelement()
 
 

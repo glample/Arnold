@@ -1,8 +1,6 @@
 import torch
 import torch.nn as nn
-from torch.autograd import Variable
 from .base import DQNModuleBase, DQN
-
 
 class DQNModuleFeedforward(DQNModuleBase):
 
@@ -21,10 +19,13 @@ class DQNModuleFeedforward(DQNModuleBase):
         """
 
         batch_size = x_screens.size(0)
+        
         assert x_screens.ndimension() == 4
         assert len(x_variables) == self.n_variables
-        assert all(x.ndimension() == 1 and x.size(0) == batch_size
-                   for x in x_variables)
+
+        if batch_size > 1:
+            assert all(x.ndimension() == 1 and x.size(0) == batch_size for x in x_variables), \
+                f"{[(x.ndimension(), x.size(), x) for x in x_variables]} {batch_size}"
 
         # state input (screen / depth / labels buffer + variables)
         state_input, output_gf = self.base_forward(x_screens, x_variables)
@@ -45,7 +46,6 @@ class DQNFeedforward(DQN):
     def f_eval(self, last_states):
 
         screens, variables = self.prepare_f_eval_args(last_states)
-
         return self.module(
             screens.view(1, -1, *self.screen_shape[1:]),
             [variables[-1, i] for i in range(self.params.n_variables)]
@@ -74,7 +74,7 @@ class DQNFeedforward(DQN):
         )
 
         # compute scores
-        mask = torch.ByteTensor(output_sc1.size()).fill_(0)
+        mask = torch.BoolTensor(output_sc1.size()).fill_(0)
         for i in range(batch_size):
             mask[i, int(actions[i, -1])] = 1
         scores1 = output_sc1.masked_select(self.get_var(mask))
@@ -83,7 +83,7 @@ class DQNFeedforward(DQN):
         )
 
         # dqn loss
-        loss_sc = self.loss_fn_sc(scores1, Variable(scores2.data))
+        loss_sc = self.loss_fn_sc(scores1, scores2.detach())
 
         # game features loss
         loss_gf = 0

@@ -1,7 +1,6 @@
 import numpy as np
 import torch
 import torch.nn as nn
-from torch.autograd import Variable
 from logging import getLogger
 
 from ...utils import bool_flag
@@ -78,7 +77,7 @@ class DQNModuleBase(nn.Module):
 
         # create state input
         if self.n_variables:
-            output = torch.cat([conv_output] + embeddings, 1)
+            output = torch.cat([conv_output] + embeddings, dim=1)
         else:
             output = conv_output
 
@@ -120,7 +119,7 @@ class DQN(object):
 
     def get_var(self, x):
         """Move a tensor to a CPU / GPU variable."""
-        x = Variable(x)
+        x = x.detach()
         return x.cuda() if self.cuda else x
 
     def reset(self):
@@ -185,8 +184,8 @@ class DQN(object):
         return screens, variables, features, actions, rewards, isfinal
 
     def register_loss(self, loss_history, loss_sc, loss_gf):
-        loss_history['dqn_loss'].append(loss_sc.data[0])
-        loss_history['gf_loss'].append(loss_gf.data[0]
+        loss_history['dqn_loss'].append(loss_sc.cpu().item())
+        loss_history['gf_loss'].append(loss_gf.cpu().item()
                                        if self.n_features else 0)
 
     def next_action(self, last_states, save_graph=False):
@@ -205,7 +204,7 @@ class DQN(object):
             if pred_features is not None:
                 assert pred_features.size() == (1, seq_len, self.module.n_features)
                 pred_features = pred_features[0, -1]
-        action_id = scores.data.max(0)[1][0]
+        action_id = scores.data.max(0)[1].item()
         self.pred_features = pred_features
         return action_id
 
